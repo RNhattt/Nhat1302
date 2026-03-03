@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Album 12A2</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#ffb3d9,#ff4f9a);
+    text-align:center;
+    color:white;
+}
+
+h1{
+    padding:30px 10px;
+    font-size:40px;
+}
+
+/* Container ảnh */
+.gallery{
+    display:flex;
+    flex-direction:column;   /* Xếp dọc */
+    align-items:center;      /* Canh giữa */
+    gap:30px;
+    padding:20px;
+}
+
+/* Ảnh to gần full trang */
+.gallery img{
+    width:90%;              /* To gần hết trang */
+    max-width:1000px;       /* Không quá to trên màn hình lớn */
+    aspect-ratio:4/3;
+    object-fit:cover;
+    border-radius:20px;
+    cursor:pointer;
+    transition:0.4s;
+    box-shadow:0 8px 25px rgba(0,0,0,0.3);
+}
+
+.gallery img:hover{
+    transform:scale(1.03);
+}
+
+/* Popup */
+.popup{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.9);
+    justify-content:center;
+    align-items:center;
+}
+
+.popup img{
+    max-width:90%;
+    max-height:90%;
+    border-radius:20px;
+    animation:zoom 0.4s ease;
+}
+
+@keyframes zoom{
+    from{transform:scale(0.6);}
+    to{transform:scale(1);}
+}
+
+.close{
+    position:absolute;
+    top:20px;
+    right:30px;
+    font-size:45px;
+    color:white;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🌸 Album 12A2 🌸</h1>
+
+<div class="gallery">
+    <img src="tap the lop.jpg">
+    <img src="tapthe.jpg">
+    <img src="ttl.jpg">
+    <img src="tvn.jpg">
+</div>
+
+<div class="popup" id="popup">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <img id="popupImg">
+</div>
+
+<script>
+const images = document.querySelectorAll(".gallery img");
+const popup = document.getElementById("popup");
+const popupImg = document.getElementById("popupImg");
+
+images.forEach(img=>{
+    img.addEventListener("click", ()=>{
+        popup.style.display="flex";
+        popupImg.src = img.src;
+    });
+});
+
+function closePopup(){
+    popup.style.display="none";
+}
+
+popup.addEventListener("click", function(e){
+    if(e.target === popup){
+        popup.style.display="none";
+    }
+});
+</script>
+
+<a href="Trang chu.html">Quay lại Trang Chủ</a>
+
+</body>
+</html>
