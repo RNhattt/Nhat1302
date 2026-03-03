@@ -6,76 +6,99 @@
 <title>Góc Cảm Xúc 12A2</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
-
 body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#ffb3d9,#ff4f9a);
     margin:0;
-    font-family:Arial, sans-serif;
-    background:linear-gradient(to right,#ffe0ec,#fff5f8);
-    padding:40px 20px;
-}
-
-/* Tiêu đề */
-h1{
     text-align:center;
-    color:#d63384;
-    margin-bottom:40px;
+    color:white;
 }
 
-/* Danh sách ngang */
+h1{
+    padding:30px 10px;
+    font-size:38px;
+}
+
 .container{
     display:flex;
+    flex-wrap:wrap;
     justify-content:center;
-    gap:30px;
-    flex-wrap:wrap; /* tự xuống hàng khi màn hình nhỏ */
+    gap:25px;
+    padding:20px;
 }
 
-/* Ô nội dung */
 .card{
     background:white;
+    color:#333;
     width:300px;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
-    transition:0.3s;
-    text-align:center;
-}
-
-.card:hover{
-    transform:translateY(-8px);
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
 .card h2{
-    color:#d63384;
+    color:#ff4f9a;
+}
+
+button{
+    padding:10px 15px;
+    border:none;
+    background:#ff4f9a;
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#e60073;
+}
+
+/* ===== POPUP ===== */
+.popup{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+}
+
+.popup-content{
+    background:white;
+    color:#333;
+    width:90%;
+    max-width:600px;
+    border-radius:20px;
+    padding:20px;
+    text-align:center;
+    animation:zoom 0.4s ease;
+}
+
+.popup-content img{
+    width:100%;
+    border-radius:15px;
     margin-bottom:15px;
 }
 
-.card p{
-    color:#555;
-    font-size:14px;
-    line-height:1.6;
-}
-
-/* Button */
-.card button{
-    margin-top:15px;
-    padding:8px 15px;
-    border:none;
-    border-radius:8px;
-    background:#d63384;
+.close{
+    position:absolute;
+    top:20px;
+    right:30px;
+    font-size:40px;
     color:white;
     cursor:pointer;
 }
 
-.card button:hover{
-    background:#ad2a6d;
+@keyframes zoom{
+    from{transform:scale(0.6);}
+    to{transform:scale(1);}
 }
 </style>
-</head>
-
-<body>
 
 <h1>🌸 Góc Cảm Xúc Lớp 12A2 🌸</h1>
 
@@ -83,41 +106,66 @@ h1{
 
 <div class="card">
 <h2>Lời Ngỏ</h2>
-<p>
-Ba năm học trôi qua như một giấc mơ.
-Chúng em xin gửi lời tri ân sâu sắc
-đến thầy cô và mái trường thân yêu.
-</p>
-<button onclick="alert('Cảm ơn bạn đã đọc Lời Ngỏ 💐')">
-Xem thêm
-</button>
+<p>Ba năm học trôi qua như một giấc mơ...</p>
+<button onclick="openPopup('logo')">Xem thêm</button>
 </div>
 
 <div class="card">
 <h2>Kỉ Niệm</h2>
-<p>
-Những giờ ra chơi rộn rã tiếng cười,
-những lần học nhóm vội vàng,
-tất cả sẽ mãi là hành trang quý giá.
-</p>
-<button onclick="alert('Kỉ niệm mãi không quên 📖')">
-Xem thêm
-</button>
+<p>Những giờ ra chơi rộn rã tiếng cười...</p>
+<button onclick="openPopup('memory')">Xem thêm</button>
 </div>
 
 <div class="card">
 <h2>Lưu Bút</h2>
-<p>
-Thời gian ơi xin đừng trôi nhanh quá,
-Để chúng con còn mãi tuổi học trò.
-Mai xa rồi vẫn nhớ mãi nơi đây.
-</p>
-<button onclick="alert('Tuổi học trò đáng nhớ ✍')">
-Xem thêm
-</button>
+<p>Thời gian ơi xin đừng trôi nhanh quá...</p>
+<button onclick="openPopup('book')">Xem thêm</button>
 </div>
 
 </div>
-<a href="Trangchinh.html">⬅ Quay lại Trang Chủ</a>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+<span class="close" onclick="closePopup()">&times;</span>
+<div class="popup-content">
+<img id="popupImg">
+<p id="popupText"></p>
+</div>
+</div>
+
+<script>
+function openPopup(type){
+    const popup = document.getElementById("popup");
+    const img = document.getElementById("popupImg");
+    const text = document.getElementById("popupText");
+
+    if(type === "logo"){
+        img.src="lop.jpg";
+        text.innerText="Ba năm dưới mái trường là quãng thời gian đẹp nhất. Chúng em xin gửi lời cảm ơn chân thành đến thầy cô đã dìu dắt chúng em trưởng thành.Ba năm cấp ba khép lại trong những cảm xúc thật khó gọi tên. Mới ngày nào còn bỡ ngỡ bước vào lớp với bao ước mơ và lo lắng, vậy mà giờ đây chúng em đã đứng trước ngưỡng cửa chia xa. Những tiết học thân quen, tiếng trống trường vang vọng, những buổi ra chơi đầy ắp tiếng cười – tất cả bỗng trở nên quý giá hơn bao giờ hết. Ra trường không chỉ là kết thúc một chặng đường, mà còn là lúc mỗi chúng em học cách trưởng thành, biết trân trọng thầy cô, bạn bè và mái trường đã gắn bó suốt thanh xuân tươi đẹp. Dẫu mai này mỗi người một hướng đi riêng, nhưng ký ức về lớp học năm ấy sẽ mãi là một phần không thể thiếu trong trái tim của chúng em.";
+    }
+    else if(type === "memory"){
+        img.src="5ng.jpg";
+        text.innerText="Ba năm cấp ba trôi qua nhanh hơn chúng ta từng nghĩ. Từ những ngày đầu còn lạ lẫm, ngại ngùng làm quen bạn mới, cho đến khi cả lớp trở thành một gia đình nhỏ đầy ắp tiếng cười. Đó là những buổi học căng thẳng trước kỳ thi, những lần cùng nhau trực nhật, những giờ ra chơi rộn ràng khắp hành lang và cả những khoảnh khắc nghịch ngợm rất đỗi học trò. Ba năm ấy không chỉ là quãng thời gian học tập mà còn là hành trình trưởng thành, nơi chúng ta biết yêu thương, sẻ chia và trân trọng nhau hơn. Mai này mỗi người một con đường riêng, nhưng những kỉ niệm dưới mái trường thân yêu sẽ mãi là phần ký ức trong trẻo và đẹp đẽ nhất của tuổi thanh xuân.";
+    }
+    else if(type === "book"){
+        img.src="lop2.jpg";
+        text.innerText="Ngày hôm nay, khi tiếng trống cuối cùng vang lên, chúng ta chính thức nói lời tạm biệt với tuổi học trò. Ba năm không quá dài nhưng đủ để biến những người xa lạ trở thành tri kỷ, đủ để mỗi góc lớp, mỗi dãy hành lang đều in đậm dấu chân kỷ niệm. Chúng ta đã cùng nhau cười thật nhiều, đôi lúc cũng giận hờn, áp lực vì bài vở, lo lắng trước những kỳ thi – nhưng sau tất cả là sự trưởng thành và tình bạn không gì thay thế được. Mai này mỗi người một con đường, có thể không còn gặp nhau thường xuyên như trước, nhưng xin hãy nhớ rằng chúng ta đã từng có một thanh xuân rực rỡ mang tên 12A2. Cảm ơn vì đã xuất hiện trong những năm tháng đẹp nhất của đời nhau. Nếu có thể quay lại, mình vẫn muốn được một lần nữa ngồi trong lớp học ấy, nghe tiếng gọi tên thân quen và cùng nhau mơ về tương lai.";
+                                                                                    
+    }
+
+    popup.style.display="flex";
+}
+
+function closePopup(){
+    document.getElementById("popup").style.display="none";
+}
+
+document.getElementById("popup").addEventListener("click", function(e){
+    if(e.target === this){
+        closePopup();
+    }
+});
+</script>
+<a href="Trang chu.html">Quay Lại Trang Chủ</a>
 </body>
 </html>
